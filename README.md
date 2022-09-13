@@ -1,8 +1,13 @@
 # Time Periodic Analyzer
 
 ### Authors:
-- Alejandro Correa Bahnsen <accorea@easysol.net>
-- Sergio Villegaas <svillegas@easysol.net>
+- Alejandro Correa Bahnsen 
+- Sergio Villegaas
+- Juan Sebastián Salcedo Gallo
+- Jesús Solano
+- Victor Maya
+- Cesar Charalla
+- Hernán García
 
 __version__ = '0.1'
 
