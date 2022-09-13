@@ -58,3 +58,8 @@ Thumbs.db
 *.gz
 *.xlsx
 .ipynb_checkpoints/
+*.sql
+pull_data/
+__pycache__
+ta_pa/
+main.py
