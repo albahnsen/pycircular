@@ -79,7 +79,9 @@ def base_periodic_fig(dates, freq, bottom=0, ymax=1,
         ticks_loc = ax1.get_xticks().tolist()
         ax1.xaxis.set_major_locator(mticker.FixedLocator(ticks_loc))
         ax1.set_xticklabels(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-        angles=[i+(width/2) for i in angles]
+        angles=[i-(width) for i in angles]
+        # TO DO: check the shift amount for good visualization
+        # angles=[i-(width/2) for i in angles] ?
 
     elif time_segment == 'daymonth':
         width /= 31
