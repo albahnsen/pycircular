@@ -9,9 +9,9 @@
 - Cesar Charalla
 - Hernán García
 
-__version__ = '0.1'
+__version__ = '1.0'
 
-__date__ = 19/11/2015
+__date__ = 13/09/2022
 
 
 ## Motivation
