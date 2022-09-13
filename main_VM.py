@@ -2,7 +2,6 @@ from collections import defaultdict
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 import os.path as op
 import sys
 import seaborn as sns
@@ -66,7 +65,6 @@ def get_p_value_user(n, timestamps, time_segments, plot):
 
     return return_dict
 
-
 def get_p_value_user_no_plot(n, timestamps, time_segments): 
 
     str_ = 'Results periodic time analyzers \n'
@@ -87,14 +85,15 @@ def get_p_value_user_no_plot(n, timestamps, time_segments):
 
         # Plot kernel
         str_ += 'Risk pvalue ' + time_segment + ' = ' + str(p) + '\n'
-        #print("hello")
+
         end = time.time()
         secs = end - start
         return_dict[time_segment] = [n, len(timestamps), bw, p, secs]
 
     return return_dict
 
-# def plot_several_timestamps(n, timestamps, time_segments, plot, colors, legends): 
+
+# def plot_several_timestamps(n, timestamps, time_segments, plot, colors, legends): ## plot several timestamps with respective label
 
 #     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16,16), subplot_kw=dict(polar=True))
 #     ax_ = {'hour': ax1, 'dayweek': ax2, 'daymonth': ax3}

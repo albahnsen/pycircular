@@ -98,7 +98,6 @@ def base_periodic_fig(dates, freq, bottom=0, ymax=1,
     ax1.set_yticklabels([])
     return fig, ax1
 
-
 # TODO: Inherit the properties from base_clock. Probably as a class
 def clock_vonmises_distribution(ax1, mean, x, p, rescale=True):
     # TODO: add description
