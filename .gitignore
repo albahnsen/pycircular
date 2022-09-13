@@ -61,5 +61,5 @@ Thumbs.db
 *.sql
 pull_data/
 __pycache__
-ta_pa/
+ta_tpa/
 main.py
