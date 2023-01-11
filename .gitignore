@@ -54,8 +54,6 @@ Thumbs.db
 *.mov
 *.wmv
 
-*.csv
-*.gz
 *.xlsx
 .ipynb_checkpoints/
 *.sql
