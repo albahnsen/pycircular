@@ -1,7 +1,12 @@
+
 .. image:: https://badge.fury.io/py/pycircular.svg
+
 .. image:: https://img.shields.io/badge/python-3.9-blue.svg
+
 .. image:: https://img.shields.io/badge/license-BSD-blue.svg
+
 |
+
 .. image:: https://raw.githubusercontent.com/albahnsen/pycircular/master/logo.png
 
 PyCircular

@@ -16,7 +16,7 @@ setup(
     author="Alejandro Correa Bahnsen",
     author_email='al.bahnsen@gmail.com',
     packages=find_packages(),
-    include_package_data = True,
+    include_package_data=True,
     keywords=['machine learning', 'circular', 'feature engineering'],
     url='https://github.com/albahnsen/pycircular',
     install_requires=['scikit-learn', 'pandas'],
