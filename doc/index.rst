@@ -12,10 +12,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   Intro
+   PyCircular
    Datasets
-   Circular
-   Plots
-   Stats
-   Utils
    Tutorials
