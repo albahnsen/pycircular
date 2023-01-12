@@ -37,8 +37,9 @@ def plot_kernel(dates, freq, y, bottom=0, ymax=1,
     n = y.shape[0]
     z = np.linspace(0, np.pi * 2, n)
 
-    ax1.plot(z + fig_adjustment[time_segment], y, color=current_palette[1], ls='-', linewidth=2)
+    ax1.plot(z + fig_adjustment[time_segment], y, color=current_palette[1], ls='-', linewidth=2, label="von Mises Kernel Distribution")
     ax1.fill_between(z + fig_adjustment[time_segment], 0, y, alpha=0.5, color=current_palette[1])
+    ax1.legend(bbox_to_anchor=(-0.3, 0.05), loc="upper left", borderaxespad=0)
 
     return fig, ax1
 
@@ -118,7 +119,7 @@ def base_periodic_fig(dates, freq, bottom=0, ymax=1,
         angles=[i-(width/2) for i in angles]
         # TODO: what to do with 31
 
-    ax1.bar(angles, freq, width=width, bottom=bottom, alpha=0.5)
+    ax1.bar(angles, freq, width=width, bottom=bottom, alpha=0.5, label="Dates")
     ax1.set_ylim([0, bottom+ymax])
 
     ax1.set_yticklabels([])
@@ -135,8 +136,9 @@ def clock_vonmises_distribution(ax1, mean, x, p, rescale=True):
     ax1.plot([mean, mean], [0, 1], c=current_palette[1], ls='--', linewidth=5)
 
     # Plot the distribution
-    ax1.plot(x, p, c=current_palette[1], ls='-', linewidth=2)
+    ax1.plot(x, p, c=current_palette[1], ls='-', linewidth=2, label="von Mises Distribution")
     ax1.fill_between(x, 0, p, alpha=0.5, color=current_palette[1])
+    ax1.legend(bbox_to_anchor=(-0.3, 0.05), loc="upper left", borderaxespad=0)
 
     return ax1
 
