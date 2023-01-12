@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pycircular.stats &mdash; pycircular  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> pycircular
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PyCircular.html">pycircular package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Datasets.html">pycircular.datasets package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials.html">PyCircular Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycircular</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pycircular.stats</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pycircular.stats</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">vonmises</span>
+<span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))))</span>
+
+
+<div class="viewcode-block" id="kuiper_two"><a class="viewcode-back" href="../../PyCircular.html#pycircular.stats.kuiper_two">[docs]</a><span class="k">def</span> <span class="nf">kuiper_two</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">return_all</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the Kuiper statistic to compare two samples.</span>
+<span class="sd">    # By Anne M. Archibald, 2007 and 2009, from</span>
+<span class="sd">    https://github.com/aarchiba/kuiper/blob/master/kuiper.py</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array-like</span>
+<span class="sd">        The first set of data values.</span>
+<span class="sd">    y : array-like</span>
+<span class="sd">        The second set of data values.</span>
+
+<span class="sd">    return_all: bool, whether to return additional info for plotting</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fpp : float</span>
+<span class="sd">        The probability of obtaining two samples this different from</span>
+<span class="sd">        the same distribution.</span>
+
+<span class="sd">    others : tuple, if return_all</span>
+<span class="sd">        (z, d_cdf, k_cdf, D1_, D2_, D1, D2)</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Warning: the fpp is quite approximate, especially for small samples.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># X CDF</span>
+    <span class="n">d_cdf</span> <span class="o">=</span> <span class="n">ECDF</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">d_cdf</span> <span class="o">=</span> <span class="n">d_cdf</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+
+    <span class="c1"># Kernel CDF</span>
+    <span class="n">k_cdf</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+    <span class="n">k_cdf</span> <span class="o">/=</span> <span class="n">k_cdf</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="c1"># Estimate D</span>
+    <span class="n">D1_</span><span class="p">,</span> <span class="n">D2_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">d_cdf</span> <span class="o">-</span> <span class="n">k_cdf</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">k_cdf</span> <span class="o">-</span> <span class="n">d_cdf</span><span class="p">)</span>
+    <span class="n">D1</span> <span class="o">=</span> <span class="p">(</span><span class="n">d_cdf</span> <span class="o">-</span> <span class="n">k_cdf</span><span class="p">)[</span><span class="n">D1_</span><span class="p">]</span>
+    <span class="n">D2</span> <span class="o">=</span> <span class="p">(</span><span class="n">k_cdf</span> <span class="o">-</span> <span class="n">d_cdf</span><span class="p">)[</span><span class="n">D2_</span><span class="p">]</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">D1</span> <span class="o">+</span> <span class="n">D2</span>
+
+    <span class="n">Ne</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">return_all</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_kuiper_prob</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">Ne</span><span class="p">),</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">d_cdf</span><span class="p">,</span> <span class="n">k_cdf</span><span class="p">,</span> <span class="n">D1_</span><span class="p">,</span> <span class="n">D2_</span><span class="p">,</span> <span class="n">D1</span><span class="p">,</span> <span class="n">D2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_kuiper_prob</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">Ne</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_kuiper_prob</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the false positive probability for the Kuiper statistic.</span>
+<span class="sd">    https://github.com/scottransom/presto/blob/master/lib/python/kuiper.py</span>
+<span class="sd">    From section 14.3 in Numerical Recipes</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    D : float</span>
+<span class="sd">        The Kuiper test score.</span>
+<span class="sd">    N : float</span>
+<span class="sd">        The effective sample size.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fpp : float</span>
+<span class="sd">        The probability of a score this large arising from the null hypothesis.</span>
+
+<span class="sd">    Reference</span>
+<span class="sd">    ---------</span>
+<span class="sd">    Press et al. &quot;Numerical Recipes: The Art of Scientific Computing&quot;,</span>
+<span class="sd">    3rd Edition, p.627, 2007.</span>
+<span class="sd">    http://www2.units.it/ipl/students_area/imm2/files/Numerical_Recipes.pdf</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># From section 14.3 in Numerical Recipes</span>
+    <span class="n">EPS1</span> <span class="o">=</span> <span class="mf">1e-6</span>
+    <span class="n">EPS2</span> <span class="o">=</span> <span class="mf">1e-12</span>
+    <span class="n">en</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">lamda</span> <span class="o">=</span> <span class="p">(</span><span class="n">en</span> <span class="o">+</span> <span class="mf">0.155</span> <span class="o">+</span> <span class="mf">0.24</span> <span class="o">/</span> <span class="n">en</span><span class="p">)</span> <span class="o">*</span> <span class="n">D</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">lamda</span> <span class="o">&lt;</span> <span class="mf">0.4</span><span class="p">):</span> <span class="k">return</span> <span class="mf">1.0</span>
+    <span class="n">probks</span> <span class="o">=</span> <span class="n">termbf</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">a2</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">lamda</span> <span class="o">*</span> <span class="n">lamda</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="n">a2ii2</span> <span class="o">=</span> <span class="n">a2</span> <span class="o">*</span> <span class="n">ii</span> <span class="o">*</span> <span class="n">ii</span>
+        <span class="n">term</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">a2ii2</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">a2ii2</span><span class="p">)</span>
+        <span class="n">probks</span> <span class="o">+=</span> <span class="n">term</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">EPS1</span><span class="o">*</span><span class="n">termbf</span> <span class="ow">or</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">EPS2</span><span class="o">*</span><span class="n">probks</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">probks</span>
+        <span class="n">termbf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mf">1.0</span>
+
+<div class="viewcode-block" id="periodic_mean_std"><a class="viewcode-back" href="../../PyCircular.html#pycircular.stats.periodic_mean_std">[docs]</a><span class="k">def</span> <span class="nf">periodic_mean_std</span><span class="p">(</span><span class="n">angles</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the periodic mean and std</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    angles : array-like or pandas.DataFrame of angles.</span>
+<span class="sd">        Do not matter if it is radians or degrees</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    mean : float</span>
+<span class="sd">        calculated periodic mean</span>
+
+<span class="sd">    std : float</span>
+<span class="sd">        calculated periodic std</span>
+
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; from pycircular.stats import periodic_mean_std</span>
+<span class="sd">    &gt;&gt;&gt; angles = np.array([0, 1, 2, 4, 6, 7, 8])</span>
+<span class="sd">    &gt;&gt;&gt; print(angles.mean(), angles.std())</span>
+<span class="sd">    &gt;&gt;&gt; print(periodic_mean_std(angles))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sin_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+    <span class="n">cos_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+    <span class="n">n_</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">sin_</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">cos_</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sin_</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">cos_</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">R</span><span class="p">))</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sin_</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cos_</span><span class="p">))</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sin_</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cos_</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">R</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span></div>
+
+
+<div class="viewcode-block" id="von_mises_distribution"><a class="viewcode-back" href="../../PyCircular.html#pycircular.stats.von_mises_distribution">[docs]</a><span class="k">def</span> <span class="nf">von_mises_distribution</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">240</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the von Mises distribution</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mean : float</span>
+<span class="sd">        calculated periodic mean</span>
+
+<span class="sd">    std : float</span>
+<span class="sd">        calculated periodic std</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x : array-like of shape [size]</span>
+<span class="sd">        radians across the circle</span>
+
+<span class="sd">    p : array-like of shape [size]</span>
+<span class="sd">        von Mises pdf for each value of x</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">vonmises</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">std</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="n">mean</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Alejandro Correa Bahnsen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

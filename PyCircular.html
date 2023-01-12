@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pycircular package &mdash; pycircular  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pycircular.datasets package" href="Datasets.html" />
+    <link rel="prev" title="Welcome to pycircular’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> pycircular
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pycircular package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pycircular.circular">pycircular.circular module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pycircular.plots">pycircular.plots module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pycircular.stats">pycircular.stats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pycircular.training">pycircular.training module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pycircular.utils">pycircular.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pycircular">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pycircular">PyCircular</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Datasets.html">pycircular.datasets package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials.html">PyCircular Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pycircular</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">pycircular package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PyCircular.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pycircular-package">
+<h1>pycircular package<a class="headerlink" href="#pycircular-package" title="Permalink to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-pycircular.circular">
+<span id="pycircular-circular-module"></span><h2>pycircular.circular module<a class="headerlink" href="#module-pycircular.circular" title="Permalink to this heading">¶</a></h2>
+<p>Port of the circular functions needed to calculate the time periodic analyzer
+Original circular project in gitlab/R7-Projects/circular</p>
+<p>! _date2rad is different than pycircular.date2rad</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.circular.bwEstimation">
+<span class="sig-prename descclassname"><span class="pre">pycircular.circular.</span></span><span class="sig-name descname"><span class="pre">bwEstimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xatol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/circular.html#bwEstimation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.circular.bwEstimation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the bandwidth/smoothing parameter for a the von Mises kernel
+based on the bw.cv.ml.pycircular function from  <a class="reference external" href="http://www.inside-r.org/packages/cran/circular/docs/bandwidth">http://www.inside-r.org/packages/cran/circular/docs/bandwidth</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">array-like of shape = [n_samples] of radians.</span></dt><dd></dd>
+<dt><strong>lower, upper: range over which to minimize for cross validatory bandwidths. The default is almost always</strong></dt><dd><p>satisfactory, although it is recommended experiment a little with different ranges.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>bw</strong><span class="classifier">the bw that minimises the squared–error loss and Kullback–Leibler for the Von Mises pdf</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.circular.kernel">
+<span class="sig-prename descclassname"><span class="pre">pycircular.circular.</span></span><span class="sig-name descname"><span class="pre">kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/circular.html#kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.circular.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the von Mises kernel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">array-like of shape = [n_samples] of radians.</span></dt><dd></dd>
+<dt><strong>bw</strong><span class="classifier">Bandwidth of the kernel estimation</span></dt><dd><p>The bandwidth is related to the width of the individual von Mises distributions</p>
+</dd>
+<dt><strong>n</strong><span class="classifier">number of points of the kernel</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>y</strong><span class="classifier">array-like of shape = [n]</span></dt><dd><p>Calculated von Mises kernel</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pycircular.plots">
+<span id="pycircular-plots-module"></span><h2>pycircular.plots module<a class="headerlink" href="#module-pycircular.plots" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.plots.base_periodic_fig">
+<span class="sig-prename descclassname"><span class="pre">pycircular.plots.</span></span><span class="sig-name descname"><span class="pre">base_periodic_fig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(8,</span> <span class="pre">8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_segment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hour'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/plots.html#base_periodic_fig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.plots.base_periodic_fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base figure for plotting periodic time variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dates</strong><span class="classifier">array-like of shape = [unique_n_samples] of dates in format ‘datetime64[ns]’.</span></dt><dd></dd>
+<dt><strong>freq</strong><span class="classifier">array-like of shape = [unique_n_samples] of frequencies for each date.</span></dt><dd></dd>
+<dt><strong># TODO: finish</strong></dt><dd></dd>
+<dt><strong>time_segment: string of values [‘hour’, ‘dayweek’, ‘daymonth’]</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>fig, ax</strong><span class="classifier">Figure and axis objects</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pycircular.utils</span> <span class="kn">import</span> <span class="n">freq_time</span><span class="p">,</span> <span class="n">date2rad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pycircular.plots</span> <span class="kn">import</span> <span class="n">base_periodic_fig</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s2">&quot;2013-10-02 19:10:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2013-10-21 19:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2013-10-24 3:00:00&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time_segment</span> <span class="o">=</span> <span class="s1">&#39;dayweek&#39;</span>  <span class="c1"># &#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq_arr</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">freq_time</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">time_segment</span><span class="o">=</span><span class="n">time_segment</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">base_periodic_fig</span><span class="p">(</span><span class="n">freq_arr</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">freq_arr</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">time_segment</span><span class="o">=</span><span class="n">time_segment</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.plots.clock_vonmises_distribution">
+<span class="sig-prename descclassname"><span class="pre">pycircular.plots.</span></span><span class="sig-name descname"><span class="pre">clock_vonmises_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/plots.html#clock_vonmises_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.plots.clock_vonmises_distribution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.plots.plot_CDF_kernel">
+<span class="sig-prename descclassname"><span class="pre">pycircular.plots.</span></span><span class="sig-name descname"><span class="pre">plot_CDF_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/plots.html#plot_CDF_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.plots.plot_CDF_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot of the CDF kernel and kuiper test</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">array-like of shape = [n_samples] of radians.</span></dt><dd></dd>
+<dt><strong>y</strong><span class="classifier">array-like of the kernel density.</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>fig, ax</strong><span class="classifier">Figure and axis objects</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pycircular.density</span> <span class="kn">import</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">bwEstimation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pycircular.density_tests</span> <span class="kn">import</span> <span class="n">kuiper_two</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pycircular.plots</span> <span class="kn">import</span> <span class="n">plot_CDF_kernel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.8</span> <span class="p">,</span>  <span class="mf">1.</span>  <span class="p">,</span>  <span class="mf">1.1</span> <span class="p">,</span>  <span class="mf">1.15</span><span class="p">,</span>  <span class="mf">4.</span>  <span class="p">,</span>  <span class="mf">4.2</span> <span class="p">,</span>  <span class="mf">4.3</span> <span class="p">,</span>  <span class="mf">4.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bw</span> <span class="o">=</span> <span class="n">bwEstimation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plot_CDF_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.plots.plot_kernel">
+<span class="sig-prename descclassname"><span class="pre">pycircular.plots.</span></span><span class="sig-name descname"><span class="pre">plot_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(8,</span> <span class="pre">8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_segment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hour'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/plots.html#plot_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.plots.plot_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Figure for plotting the kernel
+# TODO: finish</p>
+</dd></dl>
+
+</section>
+<section id="module-pycircular.stats">
+<span id="pycircular-stats-module"></span><h2>pycircular.stats module<a class="headerlink" href="#module-pycircular.stats" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.stats.kuiper_two">
+<span class="sig-prename descclassname"><span class="pre">pycircular.stats.</span></span><span class="sig-name descname"><span class="pre">kuiper_two</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/stats.html#kuiper_two"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.stats.kuiper_two" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the Kuiper statistic to compare two samples.
+# By Anne M. Archibald, 2007 and 2009, from
+<a class="reference external" href="https://github.com/aarchiba/kuiper/blob/master/kuiper.py">https://github.com/aarchiba/kuiper/blob/master/kuiper.py</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">array-like</span></dt><dd><p>The first set of data values.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like</span></dt><dd><p>The second set of data values.</p>
+</dd>
+<dt><strong>return_all: bool, whether to return additional info for plotting</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>fpp</strong><span class="classifier">float</span></dt><dd><p>The probability of obtaining two samples this different from
+the same distribution.</p>
+</dd>
+<dt><strong>others</strong><span class="classifier">tuple, if return_all</span></dt><dd><p>(z, d_cdf, k_cdf, <a href="#id1"><span class="problematic" id="id2">D1_</span></a>, <a href="#id3"><span class="problematic" id="id4">D2_</span></a>, D1, D2)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Warning: the fpp is quite approximate, especially for small samples.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.stats.periodic_mean_std">
+<span class="sig-prename descclassname"><span class="pre">pycircular.stats.</span></span><span class="sig-name descname"><span class="pre">periodic_mean_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angles</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/stats.html#periodic_mean_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.stats.periodic_mean_std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the periodic mean and std</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>angles</strong><span class="classifier">array-like or pandas.DataFrame of angles.</span></dt><dd><p>Do not matter if it is radians or degrees</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>mean</strong><span class="classifier">float</span></dt><dd><p>calculated periodic mean</p>
+</dd>
+<dt><strong>std</strong><span class="classifier">float</span></dt><dd><p>calculated periodic std</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pycircular.stats</span> <span class="kn">import</span> <span class="n">periodic_mean_std</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">angles</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">angles</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">periodic_mean_std</span><span class="p">(</span><span class="n">angles</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.stats.von_mises_distribution">
+<span class="sig-prename descclassname"><span class="pre">pycircular.stats.</span></span><span class="sig-name descname"><span class="pre">von_mises_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">240</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/stats.html#von_mises_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.stats.von_mises_distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the von Mises distribution</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>mean</strong><span class="classifier">float</span></dt><dd><p>calculated periodic mean</p>
+</dd>
+<dt><strong>std</strong><span class="classifier">float</span></dt><dd><p>calculated periodic std</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>x</strong><span class="classifier">array-like of shape [size]</span></dt><dd><p>radians across the circle</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">array-like of shape [size]</span></dt><dd><p>von Mises pdf for each value of x</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pycircular.training">
+<span id="pycircular-training-module"></span><h2>pycircular.training module<a class="headerlink" href="#module-pycircular.training" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.training.train_time_periodic">
+<span class="sig-prename descclassname"><span class="pre">pycircular.training.</span></span><span class="sig-name descname"><span class="pre">train_time_periodic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trx_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'account'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/training.html#train_time_periodic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.training.train_time_periodic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the time periodic risk of different accounts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>trx_train</strong><span class="classifier">pd.DataFrame of the transactions</span></dt><dd></dd>
+<dt><strong>n</strong><span class="classifier">number of points of the kernel</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>risks_all</strong><span class="classifier">dictionary of shape n_accounts where each value is a</span></dt><dd><p>pd.DataFrame of shape = [3, n + 1] for each account
+where the rows are the different time segments [‘hour’, ‘dayweek’, ‘daymonth’]
+the columns are the n points of the kernel and the confidence of the kernel</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-pycircular.utils">
+<span id="pycircular-utils-module"></span><h2>pycircular.utils module<a class="headerlink" href="#module-pycircular.utils" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.utils.date2rad">
+<span class="sig-prename descclassname"><span class="pre">pycircular.utils.</span></span><span class="sig-name descname"><span class="pre">date2rad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_segment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hour'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/utils.html#date2rad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.utils.date2rad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert hours to radians</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dates</strong><span class="classifier">array-like of shape = [n_samples] of hours.</span></dt><dd><p>Where the decimal point represent minutes / 60 + seconds / 60 / 100 …
+0 &lt;= times[:] &lt;= 24</p>
+</dd>
+<dt><strong>time_segment: string of values [‘hour’, ‘dayweek’, ‘daymonth’]</strong></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>radians</strong><span class="classifier">array-like of shape = [n_samples]</span></dt><dd><p>Calculated radians</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pycircular.utils</span> <span class="kn">import</span> <span class="n">date2rad</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">time_segment</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;dayweek&#39;</span><span class="p">,</span> <span class="s1">&#39;daymonth&#39;</span><span class="p">]:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">time_segment</span><span class="p">,</span> <span class="n">date2rad</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">time_segment</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pycircular.utils.freq_time">
+<span class="sig-prename descclassname"><span class="pre">pycircular.utils.</span></span><span class="sig-name descname"><span class="pre">freq_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_segment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hour'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">continious</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pycircular/utils.html#freq_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pycircular.utils.freq_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate frequency per time period and calculate continius time period</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dates</strong><span class="classifier">array-like of shape = [n_samples] of dates in format ‘datetime64[ns]’.</span></dt><dd></dd>
+<dt><strong>time_segment: string of values [‘hour’, ‘dayweek’, ‘daymonth’]</strong></dt><dd></dd>
+<dt><strong>freq</strong><span class="classifier">Whether to return the frequencies</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>freq_arr</strong><span class="classifier">array-like of shape = [unique_time_segment, 2]</span></dt><dd><dl class="simple">
+<dt>where: freq_arr[:, 0] = unique_time_segment</dt><dd><p>freq_arr[:, 1] = frequency in percentage</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>times</strong><span class="classifier">array-like of shape = [n_samples]</span></dt><dd><p>Where the decimal point represent minutes / hours depending on time_segment</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pycircular.utils</span> <span class="kn">import</span> <span class="n">freq_time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s2">&quot;2013-10-02 19:10:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2013-10-21 19:00:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2013-10-24 3:00:00&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">time_segment</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;dayweek&#39;</span><span class="p">,</span> <span class="s1">&#39;daymonth&#39;</span><span class="p">]:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">time_segment</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">freq_arr</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">freq_time</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">time_segment</span><span class="o">=</span><span class="n">time_segment</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">freq_arr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-pycircular">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pycircular" title="Permalink to this heading">¶</a></h2>
+<section id="pycircular">
+<h3>PyCircular<a class="headerlink" href="#pycircular" title="Permalink to this heading">¶</a></h3>
+<p>pycircular is a Python module for circular data analysis
+built on top of <a class="reference external" href="http://scikit-learn.org/stable/">Scikit-Learn</a>, <a class="reference external" href="http://www.scipy.org/">SciPy</a>
+and distributed under the 3-Clause BSD license.
+In particular, it provides:
+1. A set of circular analysis algorithms
+2. Different real-world datasets.</p>
+</section>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h3>
+<dl class="simple">
+<dt>You can install <code class="docutils literal notranslate"><span class="pre">costcla</span></code> with <code class="docutils literal notranslate"><span class="pre">pip</span></code>::</dt><dd><p># pip install pycircular</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to pycircular’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Datasets.html" class="btn btn-neutral float-right" title="pycircular.datasets package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Alejandro Correa Bahnsen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

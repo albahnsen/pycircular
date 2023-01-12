@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pycircular.utils &mdash; pycircular  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> pycircular
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PyCircular.html">pycircular package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Datasets.html">pycircular.datasets package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials.html">PyCircular Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycircular</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pycircular.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pycircular.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="date2rad"><a class="viewcode-back" href="../../PyCircular.html#pycircular.utils.date2rad">[docs]</a><span class="k">def</span> <span class="nf">date2rad</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">time_segment</span><span class="o">=</span><span class="s1">&#39;hour&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert hours to radians</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dates : array-like of shape = [n_samples] of hours.</span>
+<span class="sd">        Where the decimal point represent minutes / 60 + seconds / 60 / 100 ...</span>
+<span class="sd">        0 &lt;= times[:] &lt;= 24</span>
+
+<span class="sd">    time_segment: string of values [&#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth&#39;]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    radians : array-like of shape = [n_samples]</span>
+<span class="sd">        Calculated radians</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; from pycircular.utils import date2rad</span>
+<span class="sd">    &gt;&gt;&gt; times = np.array([4, 6, 7])</span>
+<span class="sd">    &gt;&gt;&gt; for time_segment in [&#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth&#39;]:</span>
+<span class="sd">    &gt;&gt;&gt;     print(time_segment, date2rad(times, time_segment))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;hour&#39;</span><span class="p">:</span>
+
+        <span class="n">radians</span> <span class="o">=</span> <span class="n">dates</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">24</span>
+
+        <span class="c1"># Fix to rotate the clock and move PI / 2</span>
+        <span class="c1"># https://en.wikipedia.org/wiki/Clock_angle_problem</span>
+
+        <span class="n">radians</span> <span class="o">=</span> <span class="o">-</span> <span class="n">radians</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="k">elif</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;dayweek&#39;</span><span class="p">:</span>
+
+        <span class="c1"># Day of week goes counter-clockwise</span>
+        <span class="n">radians</span> <span class="o">=</span> <span class="n">dates</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">7</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="k">elif</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;daymonth&#39;</span><span class="p">:</span>
+
+        <span class="c1"># Day of month goes counter-clockwise</span>
+        <span class="n">radians</span> <span class="o">=</span> <span class="n">dates</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">31</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+        <span class="c1"># TODO: check what to do with last day of month</span>
+
+    <span class="c1"># Change to be in [0, 2*pi]</span>
+    <span class="n">radians1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">radians</span><span class="p">:</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">):</span>
+            <span class="n">radians1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        
+        <span class="k">elif</span><span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)):</span>
+            <span class="n">radians1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">radians1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> 
+        
+
+    <span class="k">return</span> <span class="n">radians1</span></div>
+
+
+<span class="k">def</span> <span class="nf">_date2rad</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">time_segment</span><span class="o">=</span><span class="s1">&#39;hour&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert time_segment to radians</span>
+
+<span class="sd">    From pycircular.utils.date2rad and pycircular.utils.freq_time</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dates : pandas DatetimeIndex array-like of shape = [n_samples] of dates.</span>
+
+<span class="sd">    time_segment: string of values [&#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth&#39;]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    radians : array-like of shape = [n_samples]</span>
+<span class="sd">        Calculated radians</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># calculate times</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span> <span class="o">+</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">minute</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">second</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">/</span> <span class="mi">60</span>
+    <span class="c1"># Change from 100 to 60, consistency for radians</span>
+
+    <span class="k">if</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;hour&#39;</span><span class="p">:</span>
+
+        <span class="n">radians</span> <span class="o">=</span> <span class="n">times</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">24</span>
+
+        <span class="c1"># Fix to rotate the clock and move PI / 2</span>
+        <span class="c1"># https://en.wikipedia.org/wiki/Clock_angle_problem</span>
+
+        <span class="n">radians</span> <span class="o">=</span> <span class="o">-</span> <span class="n">radians</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="k">elif</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;dayweek&#39;</span><span class="p">:</span>
+
+        <span class="n">time_temp</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span>  <span class="c1"># Monday=0, Sunday=6</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">time_temp</span> <span class="o">+</span> <span class="n">times</span> <span class="o">/</span> <span class="mi">24</span>
+
+        <span class="c1"># Day of week goes counter-clockwise</span>
+        <span class="n">radians</span> <span class="o">=</span> <span class="n">times</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">7</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="k">elif</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;daymonth&#39;</span><span class="p">:</span>
+
+        <span class="n">time_temp</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">time_temp</span> <span class="o">+</span> <span class="n">times</span> <span class="o">/</span> <span class="mi">24</span>
+
+        <span class="c1"># Day of month goes counter-clockwise</span>
+        <span class="n">radians</span> <span class="o">=</span> <span class="n">times</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">31</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+        <span class="c1"># TODO: check what to do with last day of month</span>
+
+    <span class="c1"># Change to be in range [0, 2*pi]</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">radians</span><span class="p">,</span> <span class="s1">&#39;shape&#39;</span><span class="p">):</span>
+        <span class="c1"># Check if an array</span>
+        <span class="n">radians</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">radians</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">radians</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">radians</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># If it is a scalar</span>
+        <span class="k">if</span> <span class="n">radians</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">radians</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="k">elif</span> <span class="n">radians</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">:</span>
+            <span class="n">radians</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+    <span class="k">return</span> <span class="n">radians</span>
+
+
+<div class="viewcode-block" id="freq_time"><a class="viewcode-back" href="../../PyCircular.html#pycircular.utils.freq_time">[docs]</a><span class="k">def</span> <span class="nf">freq_time</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">time_segment</span><span class="o">=</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">continious</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate frequency per time period and calculate continius time period</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dates : array-like of shape = [n_samples] of dates in format &#39;datetime64[ns]&#39;.</span>
+
+<span class="sd">    time_segment: string of values [&#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth&#39;]</span>
+
+<span class="sd">    freq : Whether to return the frequencies</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    freq_arr : array-like of shape = [unique_time_segment, 2]</span>
+<span class="sd">        where: freq_arr[:, 0] = unique_time_segment</span>
+<span class="sd">               freq_arr[:, 1] = frequency in percentage</span>
+
+<span class="sd">    times : array-like of shape = [n_samples]</span>
+<span class="sd">        Where the decimal point represent minutes / hours depending on time_segment</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; from pycircular.utils import freq_time</span>
+<span class="sd">    &gt;&gt;&gt; dates = pd.to_datetime([&quot;2013-10-02 19:10:00&quot;, &quot;2013-10-21 19:00:00&quot;, &quot;2013-10-24 3:00:00&quot;])</span>
+<span class="sd">    &gt;&gt;&gt; for time_segment in [&#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth&#39;]:</span>
+<span class="sd">    &gt;&gt;&gt;     print(time_segment)</span>
+<span class="sd">    &gt;&gt;&gt;     freq_arr, times = freq_time(dates, time_segment=time_segment)</span>
+<span class="sd">    &gt;&gt;&gt;     print(freq_arr)</span>
+<span class="sd">    &gt;&gt;&gt;     print(times)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Get frequency per time_segment</span>
+    <span class="n">dates_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+
+    <span class="c1"># calculate times</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">dates_index</span><span class="o">.</span><span class="n">hour</span> <span class="o">+</span> <span class="n">dates_index</span><span class="o">.</span><span class="n">minute</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dates_index</span><span class="o">.</span><span class="n">second</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">/</span> <span class="mi">100</span>
+
+    <span class="k">if</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;hour&#39;</span><span class="p">:</span>
+
+        <span class="n">time_temp</span> <span class="o">=</span> <span class="n">dates_index</span><span class="o">.</span><span class="n">hour</span>
+
+    <span class="k">elif</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;dayweek&#39;</span><span class="p">:</span>
+
+        <span class="n">time_temp</span> <span class="o">=</span> <span class="n">dates_index</span><span class="o">.</span><span class="n">dayofweek</span>  <span class="c1"># Monday=0, Sunday=6</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">time_temp</span> <span class="o">+</span> <span class="n">times</span> <span class="o">/</span> <span class="mi">24</span>
+
+    <span class="k">elif</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;daymonth&#39;</span><span class="p">:</span>
+
+        <span class="n">time_temp</span> <span class="o">=</span> <span class="n">dates_index</span><span class="o">.</span><span class="n">day</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">time_temp</span> <span class="o">+</span> <span class="n">times</span> <span class="o">/</span> <span class="mi">24</span>
+
+    <span class="n">freq_arr</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">freq</span><span class="p">:</span>
+        <span class="n">freq_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">time_temp</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+        <span class="n">freq_</span> <span class="o">=</span> <span class="n">freq_</span> <span class="o">/</span> <span class="n">freq_</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="n">freq_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">freq_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># Hour, freq</span>
+        <span class="n">freq_arr</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq_</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">freq_arr</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq_</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">if</span> <span class="n">continious</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">freq_arr</span><span class="p">,</span> <span class="n">times</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">freq_arr</span><span class="p">,</span> <span class="n">time_temp</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Alejandro Correa Bahnsen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

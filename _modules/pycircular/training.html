@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pycircular.training &mdash; pycircular  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> pycircular
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PyCircular.html">pycircular package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Datasets.html">pycircular.datasets package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials.html">PyCircular Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycircular</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pycircular.training</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pycircular.training</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.circular</span> <span class="kn">import</span> <span class="n">bwEstimation</span><span class="p">,</span> <span class="n">kernel</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_date2rad</span>
+<span class="kn">from</span> <span class="nn">.stats</span> <span class="kn">import</span> <span class="n">kuiper_two</span>
+
+
+<div class="viewcode-block" id="train_time_periodic"><a class="viewcode-back" href="../../PyCircular.html#pycircular.training.train_time_periodic">[docs]</a><span class="k">def</span> <span class="nf">train_time_periodic</span><span class="p">(</span><span class="n">trx_train</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">idname</span><span class="o">=</span><span class="s1">&#39;account&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Evaluate the time periodic risk of different accounts</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    trx_train : pd.DataFrame of the transactions</span>
+
+<span class="sd">    n : number of points of the kernel</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    risks_all : dictionary of shape n_accounts where each value is a</span>
+<span class="sd">        pd.DataFrame of shape = [3, n + 1] for each account</span>
+<span class="sd">        where the rows are the different time segments [&#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth&#39;]</span>
+<span class="sd">        the columns are the n points of the kernel and the confidence of the kernel</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># For each account</span>
+    <span class="n">accounts</span> <span class="o">=</span> <span class="n">trx_train</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">idname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+    <span class="n">risks_all</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">account</span> <span class="ow">in</span> <span class="n">accounts</span><span class="p">:</span>
+        <span class="n">dates</span> <span class="o">=</span> <span class="n">trx_train</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">idname</span><span class="si">}</span><span class="s1"> == </span><span class="si">{</span><span class="n">account</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span>
+        <span class="n">risks_all</span><span class="p">[</span><span class="n">account</span><span class="p">]</span> <span class="o">=</span> <span class="n">_train_time_periodic_account</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">risks_all</span></div>
+
+
+<span class="k">def</span> <span class="nf">_train_time_periodic_account</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+                                 <span class="n">time_segments</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;dayweek&#39;</span><span class="p">,</span> <span class="s1">&#39;daymonth&#39;</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;Evaluate the time periodic risk of a set of dates</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dates : pandas DatetimeIndex array-like of shape = [n_samples] of dates.</span>
+
+<span class="sd">    n : number of points of the kernel</span>
+
+<span class="sd">    #TODO timesegments</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    risks : pd.DataFrame of shape = [3, n + 1]</span>
+<span class="sd">        where the rows are the different time segments [&#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth&#39;]</span>
+<span class="sd">        the columns are the n points of the kernel and the confidence of the kernel</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Create the DataFrame to store the results</span>
+    <span class="n">risks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">time_segments</span><span class="p">,</span>
+                         <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Risk_p&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="o">+</span>
+                                 <span class="p">[</span><span class="s1">&#39;Risk_confidence&#39;</span><span class="p">,</span> <span class="s1">&#39;bw&#39;</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">time_segment</span> <span class="ow">in</span> <span class="n">time_segments</span><span class="p">:</span>
+
+        <span class="n">radians</span> <span class="o">=</span> <span class="n">_date2rad</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">time_segment</span><span class="o">=</span><span class="n">time_segment</span><span class="p">)</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+        <span class="c1"># Find bw</span>
+        <span class="n">bw</span> <span class="o">=</span> <span class="n">bwEstimation</span><span class="p">(</span><span class="n">radians</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+
+        <span class="c1"># Estimate kernel</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">radians</span><span class="p">,</span> <span class="n">bw</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+        <span class="c1"># Test the kernel</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">kuiper_two</span><span class="p">(</span><span class="n">radians</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="n">risks</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">time_segment</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">risks</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">time_segment</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="n">risks</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">time_segment</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">bw</span>
+
+    <span class="k">return</span> <span class="n">risks</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Alejandro Correa Bahnsen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

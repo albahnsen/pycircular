@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pycircular.plots &mdash; pycircular  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> pycircular
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../PyCircular.html">pycircular package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Datasets.html">pycircular.datasets package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Tutorials.html">PyCircular Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycircular</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pycircular.plots</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pycircular.plots</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FuncFormatter</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">current_palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">mticker</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;__file__&quot;</span><span class="p">)))))</span>
+
+<span class="kn">from</span> <span class="nn">pycircular.utils</span> <span class="kn">import</span> <span class="n">date2rad</span>
+<span class="kn">from</span> <span class="nn">pycircular.stats</span> <span class="kn">import</span> <span class="n">periodic_mean_std</span><span class="p">,</span> <span class="n">von_mises_distribution</span>
+<span class="kn">from</span> <span class="nn">pycircular.stats</span> <span class="kn">import</span> <span class="n">kuiper_two</span>
+
+<span class="n">fig_adjustment</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;dayweek&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;daymonth&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">35</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="plot_kernel"><a class="viewcode-back" href="../../PyCircular.html#pycircular.plots.plot_kernel">[docs]</a><span class="k">def</span> <span class="nf">plot_kernel</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">rescale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+                <span class="n">time_segment</span><span class="o">=</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax1</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Figure for plotting the kernel</span>
+<span class="sd">    # TODO: finish</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">base_periodic_fig</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">bottom</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">ymax</span><span class="p">,</span>
+                                 <span class="n">rescale</span><span class="o">=</span><span class="n">rescale</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span>
+                                 <span class="n">time_segment</span><span class="o">=</span><span class="n">time_segment</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rescale</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">/</span> <span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="n">fig_adjustment</span><span class="p">[</span><span class="n">time_segment</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">current_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="n">fig_adjustment</span><span class="p">[</span><span class="n">time_segment</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">current_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span></div>
+
+
+<div class="viewcode-block" id="base_periodic_fig"><a class="viewcode-back" href="../../PyCircular.html#pycircular.plots.base_periodic_fig">[docs]</a><span class="k">def</span> <span class="nf">base_periodic_fig</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">rescale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+                      <span class="n">time_segment</span><span class="o">=</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax1</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base figure for plotting periodic time variables</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dates : array-like of shape = [unique_n_samples] of dates in format &#39;datetime64[ns]&#39;.</span>
+
+<span class="sd">    freq : array-like of shape = [unique_n_samples] of frequencies for each date.</span>
+
+<span class="sd">    # TODO: finish</span>
+
+<span class="sd">    time_segment: string of values [&#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth&#39;]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig, ax : Figure and axis objects</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; from pycircular.utils import freq_time, date2rad</span>
+<span class="sd">    &gt;&gt;&gt; from pycircular.plots import base_periodic_fig</span>
+<span class="sd">    &gt;&gt;&gt; dates = pd.to_datetime([&quot;2013-10-02 19:10:00&quot;, &quot;2013-10-21 19:00:00&quot;, &quot;2013-10-24 3:00:00&quot;])</span>
+<span class="sd">    &gt;&gt;&gt; time_segment = &#39;dayweek&#39;  # &#39;hour&#39;, &#39;dayweek&#39;, &#39;daymonth</span>
+<span class="sd">    &gt;&gt;&gt; freq_arr, times = freq_time(dates, time_segment=time_segment)</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax1 = base_periodic_fig(freq_arr[:, 0], freq_arr[:, 1], time_segment=time_segment)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">rescale</span><span class="p">:</span>
+        <span class="n">freq</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">/</span> <span class="n">freq</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="mf">1.</span>
+
+    <span class="n">angles</span> <span class="o">=</span> <span class="n">date2rad</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">time_segment</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">fig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+        <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">polar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Define figure parameters</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;hour&#39;</span><span class="p">:</span>
+        <span class="n">width</span> <span class="o">/=</span> <span class="mi">30</span>
+        <span class="n">ticks_loc</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mticker</span><span class="o">.</span><span class="n">FixedLocator</span><span class="p">(</span><span class="n">ticks_loc</span><span class="p">))</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;6h&#39;</span><span class="p">,</span> <span class="s1">&#39;3h&#39;</span><span class="p">,</span> <span class="s1">&#39;0h&#39;</span><span class="p">,</span> <span class="s1">&#39;21h&#39;</span><span class="p">,</span> <span class="s1">&#39;18h&#39;</span><span class="p">,</span> <span class="s1">&#39;15h&#39;</span><span class="p">,</span> <span class="s1">&#39;12h&#39;</span><span class="p">,</span> <span class="s1">&#39;9h&#39;</span><span class="p">])</span>
+        <span class="n">angles</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">angles</span><span class="p">]</span>
+
+    <span class="k">elif</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;dayweek&#39;</span><span class="p">:</span>
+        <span class="n">width</span> <span class="o">/=</span> <span class="mi">30</span>
+        <span class="n">temp_xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">temp_xticks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">temp_xticks</span><span class="p">)</span>
+        <span class="n">ticks_loc</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mticker</span><span class="o">.</span><span class="n">FixedLocator</span><span class="p">(</span><span class="n">ticks_loc</span><span class="p">))</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;Monday&#39;</span><span class="p">,</span> <span class="s1">&#39;Tuesday&#39;</span><span class="p">,</span> <span class="s1">&#39;Wednesday&#39;</span><span class="p">,</span> <span class="s1">&#39;Thursday&#39;</span><span class="p">,</span> <span class="s1">&#39;Friday&#39;</span><span class="p">,</span> <span class="s1">&#39;Saturday&#39;</span><span class="p">,</span> <span class="s1">&#39;Sunday&#39;</span><span class="p">])</span>
+        <span class="n">angles</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">angles</span><span class="p">]</span>
+        <span class="c1"># TO DO: check the shift amount for good visualization</span>
+        <span class="c1"># angles=[i-(width/2) for i in angles] ?</span>
+
+    <span class="k">elif</span> <span class="n">time_segment</span> <span class="o">==</span> <span class="s1">&#39;daymonth&#39;</span><span class="p">:</span>
+        <span class="n">width</span> <span class="o">/=</span> <span class="mi">31</span>
+        <span class="n">temp_xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">temp_xticks</span><span class="p">[</span><span class="n">temp_xticks</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">temp_xticks</span><span class="p">)</span>
+        <span class="n">ticks_loc</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mticker</span><span class="o">.</span><span class="n">FixedLocator</span><span class="p">(</span><span class="n">ticks_loc</span><span class="p">))</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+        <span class="n">angles</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="p">(</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">angles</span><span class="p">]</span>
+        <span class="c1"># TODO: what to do with 31</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">bottom</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">bottom</span><span class="o">+</span><span class="n">ymax</span><span class="p">])</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span></div>
+
+<span class="c1"># TODO: Inherit the properties from base_clock. Probably as a class</span>
+<div class="viewcode-block" id="clock_vonmises_distribution"><a class="viewcode-back" href="../../PyCircular.html#pycircular.plots.clock_vonmises_distribution">[docs]</a><span class="k">def</span> <span class="nf">clock_vonmises_distribution</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">rescale</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># TODO: add description</span>
+
+    <span class="k">if</span> <span class="n">rescale</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">/</span> <span class="n">p</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="c1"># Plot the mean</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">mean</span><span class="p">,</span> <span class="n">mean</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">current_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="c1"># Plot the distribution</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">current_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">current_palette</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">ax1</span></div>
+
+
+<div class="viewcode-block" id="plot_CDF_kernel"><a class="viewcode-back" href="../../PyCircular.html#pycircular.plots.plot_CDF_kernel">[docs]</a><span class="k">def</span> <span class="nf">plot_CDF_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot of the CDF kernel and kuiper test</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : array-like of shape = [n_samples] of radians.</span>
+
+<span class="sd">    y : array-like of the kernel density.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig, ax : Figure and axis objects</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; from pycircular.density import kernel, bwEstimation</span>
+<span class="sd">    &gt;&gt;&gt; from pycircular.density_tests import kuiper_two</span>
+<span class="sd">    &gt;&gt;&gt; from pycircular.plots import plot_CDF_kernel</span>
+<span class="sd">    &gt;&gt;&gt; x = np.array([0.8 ,  1.  ,  1.1 ,  1.15,  4.  ,  4.2 ,  4.3 ,  4.4])</span>
+<span class="sd">    &gt;&gt;&gt; bw = bwEstimation(x, upper=500)</span>
+<span class="sd">    &gt;&gt;&gt; y = kernel(x, bw=2)</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax1 = plot_CDF_kernel(x, y)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">d_cdf</span><span class="p">,</span> <span class="n">k_cdf</span><span class="p">,</span> <span class="n">D1_</span><span class="p">,</span> <span class="n">D2_</span><span class="p">,</span> <span class="n">D1</span><span class="p">,</span> <span class="n">D2</span><span class="p">)</span> <span class="o">=</span> <span class="n">kuiper_two</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">return_all</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">d_cdf</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">k_cdf</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">z</span><span class="p">[</span><span class="n">D1_</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">D1_</span><span class="p">]],</span> <span class="p">[</span><span class="n">d_cdf</span><span class="p">[</span><span class="n">D1_</span><span class="p">],</span> <span class="n">k_cdf</span><span class="p">[</span><span class="n">D1_</span><span class="p">]],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">z</span><span class="p">[</span><span class="n">D2_</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">D2_</span><span class="p">]],</span> <span class="p">[</span><span class="n">d_cdf</span><span class="p">[</span><span class="n">D2_</span><span class="p">],</span> <span class="n">k_cdf</span><span class="p">[</span><span class="n">D2_</span><span class="p">]],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span></div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Alejandro Correa Bahnsen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
