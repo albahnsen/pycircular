@@ -18,6 +18,30 @@ from circular.utils import date2rad
 from circular.stats import periodic_mean_std, von_mises_distribution
 from circular.stats import kuiper_two
 
+fig_adjustment = {'hour': 2*np.pi/30, 'dayweek': -2*np.pi/8, 'daymonth': -2*np.pi/35}
+
+
+def plot_kernel(dates, freq, y, bottom=0, ymax=1,
+                rescale=True, figsize=(8, 8),
+                time_segment='hour', fig=None, ax1=None):
+    """Figure for plotting the kernel
+    # TODO: finish
+    """
+
+    fig, ax1 = base_periodic_fig(dates, freq, bottom=bottom, ymax=ymax,
+                                 rescale=rescale, figsize=figsize,
+                                 time_segment=time_segment, fig=fig, ax1=ax1)
+    if rescale:
+        y = y / y.max()
+
+    n = y.shape[0]
+    z = np.linspace(0, np.pi * 2, n)
+
+    ax1.plot(z + fig_adjustment[time_segment], y, color=current_palette[1], ls='-', linewidth=2)
+    ax1.fill_between(z + fig_adjustment[time_segment], 0, y, alpha=0.5, color=current_palette[1])
+
+    return fig, ax1
+
 
 def base_periodic_fig(dates, freq, bottom=0, ymax=1,
                       rescale=True, figsize=(8, 8),
