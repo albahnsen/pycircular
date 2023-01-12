@@ -1,5 +1,5 @@
 """
-The :mod:`circular.datasets` module includes utilities to load datasets,
+The :mod:`pycircular.datasets` module includes utilities to load datasets,
 including methods to load and fetch popular reference datasets. It also
 features some artificial data generators.
 """

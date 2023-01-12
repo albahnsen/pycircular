@@ -43,7 +43,7 @@ def load_transactions():
 
     Examples
     --------
-    >>> from circular.datasets import load_transactions
+    >>> from pycircular.datasets import load_transactions
     >>> data = load_transactions()
     >>> data.data.head()
     """

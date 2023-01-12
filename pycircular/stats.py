@@ -126,7 +126,7 @@ def periodic_mean_std(angles):
     Examples
     --------
     >>> import numpy as np
-    >>> from circular.stats import periodic_mean_std
+    >>> from pycircular.stats import periodic_mean_std
     >>> angles = np.array([0, 1, 2, 4, 6, 7, 8])
     >>> print(angles.mean(), angles.std())
     >>> print(periodic_mean_std(angles))

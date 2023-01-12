@@ -14,9 +14,9 @@ import os.path as op
 import sys
 sys.path.append(op.dirname(op.dirname(op.dirname(op.abspath("__file__")))))
 
-from circular.utils import date2rad
-from circular.stats import periodic_mean_std, von_mises_distribution
-from circular.stats import kuiper_two
+from pycircular.utils import date2rad
+from pycircular.stats import periodic_mean_std, von_mises_distribution
+from pycircular.stats import kuiper_two
 
 fig_adjustment = {'hour': 2*np.pi/30, 'dayweek': -2*np.pi/8, 'daymonth': -2*np.pi/35}
 
@@ -67,8 +67,8 @@ def base_periodic_fig(dates, freq, bottom=0, ymax=1,
     >>> import numpy as np
     >>> import pandas as pd
     >>> import matplotlib.pyplot as plt
-    >>> from circular.utils import freq_time, date2rad
-    >>> from circular.plots import base_periodic_fig
+    >>> from pycircular.utils import freq_time, date2rad
+    >>> from pycircular.plots import base_periodic_fig
     >>> dates = pd.to_datetime(["2013-10-02 19:10:00", "2013-10-21 19:00:00", "2013-10-24 3:00:00"])
     >>> time_segment = 'dayweek'  # 'hour', 'dayweek', 'daymonth
     >>> freq_arr, times = freq_time(dates, time_segment=time_segment)
@@ -157,9 +157,9 @@ def plot_CDF_kernel(x, y):
     Examples
     --------
     >>> import numpy as np
-    >>> from circular.density import kernel, bwEstimation
-    >>> from circular.density_tests import kuiper_two
-    >>> from circular.plots import plot_CDF_kernel
+    >>> from pycircular.density import kernel, bwEstimation
+    >>> from pycircular.density_tests import kuiper_two
+    >>> from pycircular.plots import plot_CDF_kernel
     >>> x = np.array([0.8 ,  1.  ,  1.1 ,  1.15,  4.  ,  4.2 ,  4.3 ,  4.4])
     >>> bw = bwEstimation(x, upper=500)
     >>> y = kernel(x, bw=2)

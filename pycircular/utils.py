@@ -21,7 +21,7 @@ def date2rad(dates, time_segment='hour'):
     Examples
     --------
     >>> import numpy as np
-    >>> from circular.utils import date2rad
+    >>> from pycircular.utils import date2rad
     >>> times = np.array([4, 6, 7])
     >>> for time_segment in ['hour', 'dayweek', 'daymonth']:
     >>>     print(time_segment, date2rad(times, time_segment))
@@ -67,7 +67,7 @@ def date2rad(dates, time_segment='hour'):
 def _date2rad(dates, time_segment='hour'):
     """Convert time_segment to radians
 
-    From circular.utils.date2rad and circular.utils.freq_time
+    From pycircular.utils.date2rad and pycircular.utils.freq_time
 
     Parameters
     ----------
@@ -152,7 +152,7 @@ def freq_time(dates, time_segment='hour', freq=True, continious=True):
     --------
     >>> import numpy as np
     >>> import pandas as pd
-    >>> from circular.utils import freq_time
+    >>> from pycircular.utils import freq_time
     >>> dates = pd.to_datetime(["2013-10-02 19:10:00", "2013-10-21 19:00:00", "2013-10-24 3:00:00"])
     >>> for time_segment in ['hour', 'dayweek', 'daymonth']:
     >>>     print(time_segment)
