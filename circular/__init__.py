@@ -6,7 +6,7 @@ built on top of `Scikit-Learn <http://scikit-learn.org/stable/>`__, `SciPy <http
 and distributed under the 3-Clause BSD license.
 In particular, it provides:
 1. A set of circular analysis algorithms
-2. Different reald-world datasets.
+2. Different real-world datasets.
 
 Installation
 ============
