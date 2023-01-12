@@ -32,7 +32,7 @@ Documentation
 =============
 
 Documentation is available at
-http://albahnsen.github.com/pycircular
+http://albahnsen.github.io/pycircular
 
 Tutorials are available at
 http://albahnsen.github.io/pycircular/Tutorials.html
