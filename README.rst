@@ -45,15 +45,28 @@ Contributions are welcome.
 
 Developers who have made significant contributions,
 
-==================== ======================================================== ================================
-Name                 ID                                                       Notes
-==================== ======================================================== ================================
-Alejandro Correa     `albahnsen <https://github.com/albahnsen>`__             primary maintainer
-Jaime Acevedo        fix
-Sergio Villegas      fix
-Juan Salcedo         fix
-Jesus Solano         fix
-==================== ======================================================== ==== ================================
+.. list-table::
+   :widths: 30 15 15
+   :header-rows: 1
+
+   * - Name
+     - ID
+     - Notes
+   * - Alejandro Correa Bahnsen
+     - `github <https://github.com/albahnsen>`__ `linkedin <https://www.linkedin.com/in/albahnsen/>`__
+     - primary maintainer
+   * - Jaime Acevedo
+     -
+     -
+   * - Sergio Villegas
+     -
+     -
+   * - Juan Salcedo
+     -
+     -
+   * - Jesus Solano
+     -
+     -
 
 LICENCE
 =======
