@@ -37,7 +37,7 @@ def plot_kernel(dates, freq, y, bottom=0, ymax=1,
     n = y.shape[0]
     z = np.linspace(0, np.pi * 2, n)
 
-    ax1.plot(z + fig_adjustment[time_segment], y, color=current_palette[1], ls='-', linewidth=2, label="von Mises Kernel Distribution")
+    ax1.plot(z + fig_adjustment[time_segment], y, color=current_palette[1], ls='-', linewidth=2, label="Kernel - von Mises")
     ax1.fill_between(z + fig_adjustment[time_segment], 0, y, alpha=0.5, color=current_palette[1])
     ax1.legend(bbox_to_anchor=(-0.3, 0.05), loc="upper left", borderaxespad=0)
 
