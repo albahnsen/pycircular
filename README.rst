@@ -59,7 +59,7 @@ Developers who have made significant contributions,
      -
      -
    * - Sergio Villegas
-     -
+     - `github <https://github.com/serpiente>`__ `linkedin <https://www.linkedin.com/in/svpg/>`__
      -
    * - Juan Salcedo
      -
