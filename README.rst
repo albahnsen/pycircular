@@ -56,7 +56,7 @@ Developers who have made significant contributions,
      - `github <https://github.com/albahnsen>`__ `linkedin <https://www.linkedin.com/in/albahnsen/>`__
      - primary maintainer
    * - Jaime Acevedo
-     -
+     - `github <https://github.com/jdacevedo3010>`__ `linkedin <https://www.linkedin.com/in/jd-acevedoviloria/>`__
      -
    * - Sergio Villegas
      - `github <https://github.com/serpiente>`__ `linkedin <https://www.linkedin.com/in/svpg/>`__
