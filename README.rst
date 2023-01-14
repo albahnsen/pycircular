@@ -97,8 +97,8 @@ Citation information: |DOI|
    :target: https://pepy.tech/project/pycircular
 .. |LICENCE| image:: https://img.shields.io/pypi/l/pycircular.svg
    :target: https://raw.githubusercontent.com/albahnsen/pycircular/master/LICENCE
-.. |DOI| image:: https://img.shields.io/badge/DOI-10.5281/zenodo.595120-blue.svg
-   :target: https://doi.org/10.5281/zenodo.595120
+.. |DOI| image:: https://img.shields.io/badge/DOI-10.5281/zenodo.7535828-blue.svg
+   :target: https://doi.org/10.5281/zenodo.7535828
 .. |Libraries-Dependents| image:: https://img.shields.io/librariesio/dependent-repos/pypi/pycircular.svg?logo=koding&logoColor=white
     :target: https://github.com/albahnsen/pycircular/network/dependents
 .. |Py-Versions| image:: https://img.shields.io/pypi/pyversions/pycircular.svg?logo=python&logoColor=white
