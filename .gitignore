@@ -10,7 +10,8 @@ doc/_templates
 # Node artifact files
 node_modules/
 dist/
-
+build/
+*.egg-info
 # Environment File
 .env
 
