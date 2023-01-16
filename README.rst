@@ -41,7 +41,7 @@ Contributions
 
 All source code is hosted on `GitHub <https://github.com/albahnsen/pycircular>`__.
 
-Contributions are welcome.
+Contributions are welcome. There are a number of `Issues <https://github.com/albahnsen/pycircular/issues>`__ that can be worked on. 
 
 Developers who have made significant contributions,
 
