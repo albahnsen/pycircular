@@ -22,7 +22,7 @@ You can install ``costcla`` with ``pip``::
 # - Jesús Solano
 # License: BSD 3 clause
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 from .datasets import *
 from pycircular import stats, plots, circular, utils

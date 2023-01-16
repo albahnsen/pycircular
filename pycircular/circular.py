@@ -66,6 +66,34 @@ def kernel(x, bw=10, n=256):
     return y_kernel
 
 
+def predict_proba(x, y_kernel):
+    """Estimate the von Mises kernel probablities
+
+    Parameters
+    ----------
+    x : array-like of shape = [n_samples] of radians.
+    
+    y_kernel : array-like of shape = [n]
+        Calculated von Mises kernel
+
+    Returns
+    -------
+    proba : array-like of shape = [n_samples]
+        Calculated von Mises kernel probabilites
+
+    """
+    
+    # find closed value in the kernel
+    n = y_kernel.shape[0]
+    z = np.linspace(0, np.pi * 2, n)
+    y_idx = x.apply(lambda x: np.abs(z - x).argmin())
+    
+    # return the kernel value
+    prob = y_kernel[(y_idx)]
+    
+    return prob
+    
+    
 def bwEstimation(x, lower= 0.1, upper= 500, xatol=1e-05):
     """Estimate the bandwidth/smoothing parameter for a the von Mises kernel
     based on the bw.cv.ml.pycircular function from  http://www.inside-r.org/packages/cran/circular/docs/bandwidth
