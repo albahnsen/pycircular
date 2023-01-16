@@ -25,3 +25,4 @@ You can install ``costcla`` with ``pip``::
 __version__ = '0.1'
 
 from .datasets import *
+from pycircular import stats, plots, circular, utils
