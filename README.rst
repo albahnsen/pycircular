@@ -7,9 +7,11 @@
 PyCircular
 ===========================
 
-pycircular is a Python module for circular data analysis
-built on top of `Scikit-Learn <http://scikit-learn.org/stable/>`__, `SciPy <http://www.scipy.org/>`__
-and distributed under the 3-Clause BSD license.
+PyCircular is a specialized data analysis python library designed specifically for working with circular data.
+Circular data, such as data that represents angles, directions or timestamps, can present unique challenges when it comes to analysis and modeling. The nature of the circular data can cause difficulties when trying to apply traditional linear and kernel-based methods, as these methods are not well suited to handle the periodic nature of circular data. Additionally, circular data can also raise issues when trying to compute mean and standard deviation, as these measures are not well-defined for circular data.
+
+PyCircular addresses these challenges by providing a set of tools and functionality specifically tailored for working with circular data. The library includes a variety of circular statistical methods, including distributions, kernels, and confidence intervals. Additionally, it also includes visualization tools such as circular histograms and distribution plots, to help you better understand your data.
+
 
 In particular, it provides:
 
